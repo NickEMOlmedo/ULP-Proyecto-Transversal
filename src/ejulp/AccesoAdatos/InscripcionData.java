@@ -96,6 +96,7 @@ public class InscripcionData {
     }
 
     public List<MateriaClass> obtenerMateriasCursadas(int idAlumno) {
+        
         ArrayList<MateriaClass> materias = new ArrayList<>();
 
         try {
