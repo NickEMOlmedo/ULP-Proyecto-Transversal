@@ -95,13 +95,13 @@ public class InscripcionData {
         return insc;
     }
 
-    public List<MateriaClass> obtenerMateriasCursadas(int idAlumno) {
+    public ArrayList<MateriaClass> obtenerMateriasCursadas(int idAlumno) {
         
         ArrayList<MateriaClass> materias = new ArrayList<>();
 
         try {
 
-            String sql = "SELECT inscripcion.idMateria,nombre,año FROM inscripcion ,materia"
+            String sql = "SELECT inscripcion.idMateria,nombre,año FROM inscripcion ,materia "
                     + "WHERE inscripcion.idMateria = materia.idMateria "
                     + "AND inscripcion.idAlumno = ?;";
 
@@ -119,20 +119,20 @@ public class InscripcionData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " error al acceder a la tabla Inscripcion ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Inscripcion...");
         }
         return materias;
 
     }
 
-    public List<MateriaClass> obtenerMateriasNoCursadas(int idAlumno) {
+    public ArrayList<MateriaClass> obtenerMateriasNoCursadas(int idAlumno) {
 
         ArrayList<MateriaClass> materias = new ArrayList<>();
 
         try {
 
             String sql = "SELECT * FROM materia WHERE estado=1 AND idMateria not in "
-                    + "(SELECT idMateria FEOM inscripcion where idAlumno = ?)";
+                    + "(SELECT idMateria FROM inscripcion where idAlumno = ?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
@@ -149,8 +149,9 @@ public class InscripcionData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " error al acceder a la tabla alumno ");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno...");
         }
+        
         return materias;
 
     }
