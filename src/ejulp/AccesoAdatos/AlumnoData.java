@@ -158,7 +158,7 @@ public class AlumnoData {
 
     }
 
-    public List<Alumno> listarAlumnos() {
+    public ArrayList<Alumno> listarAlumnos() {
         String sql = "SELECT idAlumno,dni, apellido,nombre, fechaNacimiento FROM alumno WHERE estado= 1";
         ArrayList<Alumno> alum = new ArrayList<>();
         try {

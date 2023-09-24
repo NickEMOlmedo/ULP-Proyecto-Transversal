@@ -10,6 +10,8 @@ import ejulp.AccesoAdatos.InscripcionData;
 import ejulp.Entidades.Alumno;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import ejulp.AccesoAdatos.MateriaData;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -17,12 +19,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class Inscripcion extends javax.swing.JInternalFrame {
 
+    public DefaultComboBoxModel modeloComboAlumnos;
+
     /**
      * Creates new form Inscripcion
      */
     public Inscripcion() {
         initComponents();
-        cargarCombo();
+        modeloComboAlumnos = new DefaultComboBoxModel<>(); // Crea el modelo de ComboBox
+        cargarCombo(); // Llena el modelo con datos
+        combobox_ListarAlumnos.setModel(modeloComboAlumnos); // Asigna el modelo al JComboBox
+        construirTabla();
 
     }
 
@@ -155,38 +162,34 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     AlumnoData alumnodata_temporal = new AlumnoData();
-    
+
     InscripcionData inscripciondata_temporal = new InscripcionData();
+
+    MateriaData materiadata_temporal = new MateriaData();
 
     public void cargarCombo() {
 
-        ArrayList listado_array = new ArrayList<Alumno>();
+        ArrayList<Alumno> listadoAlumnos = alumnodata_temporal.listarAlumnos();
 
-        for (Object alumnos : alumnodata_temporal.listarAlumnos()) {
+        // Limpia el modelo actual si es necesario
+        modeloComboAlumnos.removeAllElements();
 
-            listado_array.add(alumnos);
+        // Agrega los objetos Alumno al modelo del ComboBox
+        for (Alumno alumno : listadoAlumnos) {
 
-        }
-
-        for (Object alumnos : listado_array) {
-
-            combobox_ListarAlumnos.addItem(alumnos.toString());
+            modeloComboAlumnos.addElement(alumno);
 
         }
-
     }
 
     public void construirTabla() {
-        
-        
-        DefaultTableModel modelo_tabla = new DefaultTableModel();
-        
-        modelo_tabla.addColumn("ID");
-        modelo_tabla.addColumn("NOMBRE");
-        modelo_tabla.addColumn("AÑO");
-        
-       
+
+        DefaultTableModel modelo_tabla = new DefaultTableModel(new String[]{"ID", "NOMBRE", "AÑO"}, materiadata_temporal.listarMaterias().size());
+
+        tabla_materias.setModel(modelo_tabla);
+
     }
+
 
     private void combobox_ListarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_ListarAlumnosActionPerformed
 
@@ -201,16 +204,7 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
 
     private void button_MateriasCursadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_MateriasCursadasActionPerformed
 
-        
-     String item = combobox_ListarAlumnos.getSelectedItem().toString();
-      
-     int id = item.charAt(4);
-      
-    //  inscripciondata_temporal.obtenerInscripto(combobox_ListarAlumnos);
-      
 
-
-        
     }//GEN-LAST:event_button_MateriasCursadasActionPerformed
 
 
