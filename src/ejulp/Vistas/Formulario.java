@@ -1,6 +1,7 @@
 package ejulp.Vistas;
 
 import ejulp.AccesoAdatos.AlumnoData;
+import ejulp.AccesoAdatos.MateriaData;
 
 public class Formulario extends javax.swing.JFrame {
 
@@ -104,6 +105,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenu2.setText("Materia");
 
         jMenuItem3.setText("Formulario de Materia ");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -189,7 +195,28 @@ public class Formulario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    /**
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        
+
+        
+        escritorio.removeAll();
+        escritorio.repaint();
+        Materia materia_open = new Materia();
+        
+        escritorio.add(materia_open);
+
+        if (MateriaData.conexionExitosa()) {
+
+            materia_open.setVisible(true);
+        
+        
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    }
+        
+        /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {

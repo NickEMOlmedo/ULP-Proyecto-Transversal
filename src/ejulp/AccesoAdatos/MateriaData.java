@@ -1,4 +1,3 @@
-
 package ejulp.AccesoAdatos;
 
 import java.sql.Connection;
@@ -8,18 +7,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import ejulp.Entidades.MateriaClass;
 
 public class MateriaData {
+
+    private Connection con = null;
     
-     private Connection con = null;
+    static boolean conexionExitosa;
 
     public MateriaData() {
 
         con = Conexion.getConexion();
+
+        if (con != null) {
+
+            conexionExitosa = true;
+
+        }
+    }
+
+    public static boolean conexionExitosa() {
+
+        return conexionExitosa;
+
     }
 
     public void guardarMateria(MateriaClass materia) {
@@ -37,6 +48,7 @@ public class MateriaData {
 
             if (rs.next()) {
                 materia.setIdMateria(rs.getInt(1));
+                
                 JOptionPane.showMessageDialog(null, "Materia Guardada");
             }
             ps.close();
