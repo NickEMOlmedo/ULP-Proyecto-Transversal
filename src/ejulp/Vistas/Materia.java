@@ -6,13 +6,16 @@
 package ejulp.Vistas;
 
 import ejulp.AccesoAdatos.MateriaData;
+import ejulp.Entidades.MateriaClass;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *
  * @author admin
  */
 public class Materia extends javax.swing.JInternalFrame {
-
+private final MateriaData matData = new MateriaData();
+private MateriaClass materiaActual = null;
     /**
      * Creates new form Materia
      */
@@ -37,8 +40,8 @@ public class Materia extends javax.swing.JInternalFrame {
         botonBuscar = new javax.swing.JButton();
         codigo_materia = new javax.swing.JTextField();
         nombre_materia = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jTaniomateria = new javax.swing.JTextField();
+        jRadioButtonEstado = new javax.swing.JRadioButton();
         botonNuevo = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonGuardar = new javax.swing.JButton();
@@ -77,15 +80,15 @@ public class Materia extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTaniomateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTaniomateriaActionPerformed(evt);
             }
         });
 
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRadioButtonEstadoActionPerformed(evt);
             }
         });
 
@@ -128,7 +131,7 @@ public class Materia extends javax.swing.JInternalFrame {
                                     .addGap(27, 27, 27)
                                     .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(nombre_materia, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTaniomateria, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34)
                         .addComponent(botonSalir)
                         .addGap(42, 42, 42))
@@ -136,7 +139,7 @@ public class Materia extends javax.swing.JInternalFrame {
                         .addComponent(jLabel5)
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButtonEstado)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -160,11 +163,11 @@ public class Materia extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTaniomateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton1))
+                    .addComponent(jRadioButtonEstado))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonNuevo)
@@ -177,16 +180,25 @@ public class Materia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     String nombre;
-     int anioMateria;
-     boolean activo;
-     int idMateria;
-     MateriaData vista_Materia = new MateriaData();
+    // String nombre;
+    // int anioMateria;
+   //  boolean activo;
+    // int idMateria;
+    //MateriaData vista_Materia = new MateriaData();
     
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-       
-      
-        vista_Materia.buscarMateria(idMateria);
+       try{
+        Integer id = Integer.parseInt(codigo_materia.getText());
+         materiaActual = matData.buscarMateria(id);
+        if(materiaActual!=null){
+            nombre_materia.setText(materiaActual.getNombre());
+         //   jTaniomateria.setText(materiaActual.getAnioMateria());
+            jRadioButtonEstado.setSelected(materiaActual.isActivo());
+        }
+       }catch(NumberFormatException ex){
+           JOptionPane.showMessageDialog(this, "Debe ingresar un número valido");
+       }
+        //vista_Materia.buscarMateria(idMateria);
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     
@@ -208,17 +220,17 @@ public class Materia extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_codigo_materiaActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        if (isNumeric(jTextField3.getText())){{
+    private void jTaniomateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTaniomateriaActionPerformed
+        if (isNumeric(jTaniomateria.getText())){{
             
         }
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTaniomateriaActionPerformed
 
         
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void jRadioButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstadoActionPerformed
         
-        activo = jRadioButton1.isSelected();
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+        activo = jRadioButtonEstado.isSelected();
+    }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
         // TODO add your handling code here:
@@ -240,8 +252,8 @@ public class Materia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JRadioButton jRadioButtonEstado;
+    private javax.swing.JTextField jTaniomateria;
     private javax.swing.JTextField nombre_materia;
     // End of variables declaration//GEN-END:variables
 }
