@@ -100,10 +100,25 @@ private MateriaClass materiaActual = null;
         });
 
         botonEliminar.setText("Eliminar");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
 
         botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
 
         botonSalir.setText("Salir");
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,7 +207,8 @@ private MateriaClass materiaActual = null;
          materiaActual = matData.buscarMateria(id);
         if(materiaActual!=null){
             nombre_materia.setText(materiaActual.getNombre());
-         //   jTaniomateria.setText(materiaActual.getAnioMateria());
+            String anioMateria = String.valueOf(materiaActual.getAnioMateria());
+            jTaniomateria.setText(anioMateria);
             jRadioButtonEstado.setSelected(materiaActual.isActivo());
         }
        }catch(NumberFormatException ex){
@@ -205,15 +221,15 @@ private MateriaClass materiaActual = null;
     
     private void nombre_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_materiaActionPerformed
       
-        nombre = textField_nombre.getText();
+      //  nombre = textField_nombre.getText();
     }//GEN-LAST:event_nombre_materiaActionPerformed
 
     private void codigo_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigo_materiaActionPerformed
         
-       // String num = codigo_materia.getText();
+       //String num = codigo_materia.getText();
         if (isNumeric(codigo_materia.getText())) {
 
-            codigo_materia = Integer.parseInt(codigo_materia.getText());
+           // codigo_materia = Integer.parseInt(codigo_materia.getText());
            
   
        }
@@ -226,16 +242,66 @@ private MateriaClass materiaActual = null;
         }
     }//GEN-LAST:event_jTaniomateriaActionPerformed
 
-        
+    }    
     private void jRadioButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstadoActionPerformed
         
-        activo = jRadioButtonEstado.isSelected();
+        
+       // activo = jRadioButtonEstado.isSelected();
     }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
         // TODO add your handling code here:
+        limpiarCampos();
+        materiaActual=null;
     }//GEN-LAST:event_botonNuevoActionPerformed
 
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // TODO add your handling code here:
+        try{
+        Integer id = Integer.parseInt(codigo_materia.getText());
+        String nombre = nombre_materia.getText();
+        String anioMateria =jTaniomateria.getText();
+        if(nombre.isEmpty()|| anioMateria.isEmpty()){
+           JOptionPane.showMessageDialog(this, "No puede haber campos vacios"); 
+           return;
+        }
+        Boolean estado = jRadioButtonEstado.isSelected();
+        if(materiaActual==null){
+            matData.guardarMateria(materiaActual);
+            
+        }else{
+            matData.modificarMateria(materiaActual);
+        }
+        
+        }catch(NumberFormatException nfe){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un id valido"); 
+        }
+        
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        if(materiaActual!=null){
+        
+        matData.eliminarMateria(materiaActual.getIdMateria());
+        materiaActual=null;
+        limpiarCampos();
+    }else{
+            JOptionPane.showMessageDialog(this, "NO hay materia eleccionada");
+            }
+        
+    }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_botonSalirActionPerformed
+     private void limpiarCampos(){
+         codigo_materia.setText(" ");
+         nombre_materia.setText(" ");
+         jTaniomateria.setText(" ");
+         jRadioButtonEstado.setSelected(true);
+     }
     
      
      
@@ -256,4 +322,8 @@ private MateriaClass materiaActual = null;
     private javax.swing.JTextField jTaniomateria;
     private javax.swing.JTextField nombre_materia;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isNumeric(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
