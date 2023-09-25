@@ -15,11 +15,28 @@ import javax.swing.JOptionPane;
 public class InscripcionData {
 
     private Connection con = null;
+
+    static boolean conexionExitosa;
+
     MateriaData matData;
+
     AlumnoData aluData;
 
     public InscripcionData() {
+
         con = Conexion.getConexion();
+
+        if (con != null) {
+
+            conexionExitosa = true;
+
+        }
+    }
+
+    public static boolean conexionExitosa() {
+
+        return conexionExitosa;
+
     }
 
     public void inscripcion(InscripcionClass inscripcion) {
@@ -96,7 +113,7 @@ public class InscripcionData {
     }
 
     public ArrayList<MateriaClass> obtenerMateriasCursadas(int idAlumno) {
-        
+
         ArrayList<MateriaClass> materias = new ArrayList<>();
 
         try {
@@ -151,7 +168,7 @@ public class InscripcionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno...");
         }
-        
+
         return materias;
 
     }

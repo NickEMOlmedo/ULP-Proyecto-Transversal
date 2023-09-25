@@ -8,7 +8,6 @@ package ejulp.Vistas;
 import ejulp.AccesoAdatos.MateriaData;
 import ejulp.Entidades.MateriaClass;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 /**
  *
  * @author admin
@@ -203,7 +202,7 @@ private MateriaClass materiaActual = null;
     
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
        try{
-        Integer id = Integer.parseInt(codigo_materia.getText());
+        Integer id = Integer.valueOf(codigo_materia.getText());
          materiaActual = matData.buscarMateria(id);
         if(materiaActual!=null){
             nombre_materia.setText(materiaActual.getNombre());
@@ -256,17 +255,31 @@ private MateriaClass materiaActual = null;
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        // TODO add your handling code here:
+        
+        int id;
+        String nombre;
+        int anioMateria;
+        Boolean estado;
+        
         try{
-        Integer id = Integer.parseInt(codigo_materia.getText());
-        String nombre = nombre_materia.getText();
-        String anioMateria =jTaniomateria.getText();
-        if(nombre.isEmpty()|| anioMateria.isEmpty()){
-           JOptionPane.showMessageDialog(this, "No puede haber campos vacios"); 
+            
+        id = Integer.parseInt(codigo_materia.getText());
+        
+        nombre = nombre_materia.getText();
+        
+        anioMateria = Integer.parseInt(jTaniomateria.getText());
+        
+        if(nombre_materia.isEmpty()|| jTaniomateria.isEmpty()){
+            
+           JOptionPane.showMessageDialog(this, "No puede haber campos vacios");
+           
            return;
         }
-        Boolean estado = jRadioButtonEstado.isSelected();
+        
+        estado = jRadioButtonEstado.isSelected();
+        
         if(materiaActual==null){
+            
             matData.guardarMateria(materiaActual);
             
         }else{
@@ -274,8 +287,11 @@ private MateriaClass materiaActual = null;
         }
         
         }catch(NumberFormatException nfe){
+            
             JOptionPane.showMessageDialog(this, "Debe ingresar un id valido"); 
         }
+        
+        MateriaClass nuevamateria = new MateriaClass(id,nombre,anioMateria,estado);
         
     }//GEN-LAST:event_botonGuardarActionPerformed
 

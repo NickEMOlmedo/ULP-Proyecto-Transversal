@@ -35,7 +35,7 @@ public class MateriaData {
 
     public void guardarMateria(MateriaClass materia) {
 
-        String sql = "INSERT INTO materia(nombre,año,estado)Values(?,?,?)";
+        String sql = "INSERT INTO materia(nombre,año,estado) Values(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             // enviamos la insercion de datos 
@@ -47,6 +47,7 @@ public class MateriaData {
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
+                
                 materia.setIdMateria(rs.getInt(1));
                 
                 JOptionPane.showMessageDialog(null, "Materia Guardada");
