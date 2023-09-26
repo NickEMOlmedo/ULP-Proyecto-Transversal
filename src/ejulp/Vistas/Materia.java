@@ -246,7 +246,7 @@ private MateriaClass materiaActual = null;
     private void jRadioButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstadoActionPerformed
         
         
-        activo = jRadioButtonEstado.isSelected();
+       // activo = jRadioButtonEstado.isSelected();
     }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
@@ -269,13 +269,13 @@ private MateriaClass materiaActual = null;
         Boolean estado = jRadioButtonEstado.isSelected();
         
         if(materiaActual==null){
-            materiaActual = new MateriaClass(id,nombre,anioMateria,estado);
+            materiaActual = new MateriaClass(id,nombre,Integer.parseInt(anioMateria),estado);
             matData.guardarMateria(materiaActual);
             
         }else{
             materiaActual.setIdMateria(id);
             materiaActual.setNombre(nombre);
-            materiaActual.setAnioMateria(anioMateria);
+            materiaActual.setAnioMateria(Integer.parseInt(anioMateria));
             
             matData.modificarMateria(materiaActual);
         }
