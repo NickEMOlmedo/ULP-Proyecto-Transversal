@@ -206,7 +206,7 @@ private MateriaClass materiaActual = null;
          materiaActual = matData.buscarMateria(id);
         if(materiaActual!=null){
             nombre_materia.setText(materiaActual.getNombre());
-            String anioMateria = String.valueOf(materiaActual.getAnioMateria());
+           String anioMateria = String.valueOf(materiaActual.getAnioMateria());
             jTaniomateria.setText(anioMateria);
             jRadioButtonEstado.setSelected(materiaActual.isActivo());
         }
@@ -245,7 +245,7 @@ private MateriaClass materiaActual = null;
     private void jRadioButtonEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstadoActionPerformed
         
         
-       // activo = jRadioButtonEstado.isSelected();
+        activo = jRadioButtonEstado.isSelected();
     }//GEN-LAST:event_jRadioButtonEstadoActionPerformed
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
