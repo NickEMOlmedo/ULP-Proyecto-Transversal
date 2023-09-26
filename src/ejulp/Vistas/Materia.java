@@ -278,11 +278,17 @@ private MateriaClass materiaActual = null;
         
         estado = jRadioButtonEstado.isSelected();
         
+        Boolean estado = jRadioButtonEstado.isSelected();
+        
         if(materiaActual==null){
-            
+            materiaActual = new MateriaClass(id,nombre,anioMateria,estado);
             matData.guardarMateria(materiaActual);
             
         }else{
+            materiaActual.setIdMateria(id);
+            materiaActual.setNombre(nombre);
+            materiaActual.setAnioMateria(anioMateria);
+            
             matData.modificarMateria(materiaActual);
         }
         
