@@ -248,7 +248,7 @@ private MateriaClass materiaActual = null;
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
         try{
-        Integer id = Integer.valueOf(codigo_materia.getText());
+        Integer id = Integer.parseInt(codigo_materia.getText());
         String nombre = nombre_materia.getText();
         String anioMateria =jTaniomateria.getText();
         if(nombre.isEmpty()|| anioMateria.isEmpty()){
