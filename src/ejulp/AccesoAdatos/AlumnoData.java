@@ -73,10 +73,6 @@ public class AlumnoData {
             ps.setBoolean(5, alumno.isActivo());
             ps.setInt(6, alumno.getIdAlumno());
 
-            System.out.println(sql);
-
-            System.out.println(alumno.toString());
-
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, " Alumno Modificado ");

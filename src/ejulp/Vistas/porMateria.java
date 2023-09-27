@@ -5,6 +5,12 @@
  */
 package ejulp.Vistas;
 
+import ejulp.AccesoAdatos.MateriaData;
+import java.util.ArrayList;
+import ejulp.Entidades.MateriaClass;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author admin
@@ -14,8 +20,16 @@ public class porMateria extends javax.swing.JInternalFrame {
     /**
      * Creates new form porMateria
      */
+    private final DefaultComboBoxModel modeloComboMaterias;
+    private DefaultTableModel modelo;
+    
     public porMateria() {
         initComponents();
+        
+        modeloComboMaterias = new DefaultComboBoxModel<>(); // Crea el modelo de ComboBox
+        modelo = new DefaultTableModel();
+        comboboxMateria.setModel(modeloComboMaterias);
+        cargarCombo();
     }
 
     /**
@@ -29,16 +43,22 @@ public class porMateria extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jCMat = new javax.swing.JComboBox<>();
+        comboboxMateria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tabla_alumnomateria = new javax.swing.JTable();
+        boton_salir = new javax.swing.JButton();
 
         jLabel1.setText("Listado de Alumnos por Materia");
 
         jLabel2.setText("Seleccione Una materia");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        comboboxMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboboxMateriaActionPerformed(evt);
+            }
+        });
+
+        tabla_alumnomateria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -46,35 +66,37 @@ public class porMateria extends javax.swing.JInternalFrame {
                 "ID", "DNI", "Apellido", "Nombre"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla_alumnomateria);
 
-        jButton1.setText("Salir");
+        boton_salir.setText("Salir");
+        boton_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCMat, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 17, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(comboboxMateria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,24 +105,80 @@ public class porMateria extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jCMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(comboboxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(boton_salir)
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    MateriaData materias = new MateriaData();
+    
+    private void cargarCombo() {
+        
+        ArrayList<MateriaClass> lista_materias = (ArrayList<MateriaClass>) materias.listarMaterias();
+        
+        modeloComboMaterias.removeAllElements();
+        
+        for (Object iterador : lista_materias) {
+            
+            modeloComboMaterias.addElement(iterador);
+            
+        }
+        
+    }
+    
+     private void armarCabecera() {
+
+        ArrayList<Object> fila_cabecera = new ArrayList<>();
+
+        fila_cabecera.add("ID");
+        fila_cabecera.add("NOMBRE");
+        fila_cabecera.add("AÑO");
+
+        for (Object lector : fila_cabecera) {
+
+            modelo.addColumn(lector);
+
+        }
+
+        tabla_alumnomateria.setModel(modelo);
+    }
+
+    private void borrarFilas() {
+
+        int rowCount = modelo.getRowCount();
+
+        for (int i = rowCount - 1; i >= 0; i--) {
+
+            modelo.removeRow(i);
+        }
+
+    }
+    
+
+    private void comboboxMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxMateriaActionPerformed
+        
+
+    }//GEN-LAST:event_comboboxMateriaActionPerformed
+
+    private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
+
+
+        this.dispose();
+    }//GEN-LAST:event_boton_salirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jCMat;
+    private javax.swing.JButton boton_salir;
+    private javax.swing.JComboBox<String> comboboxMateria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabla_alumnomateria;
     // End of variables declaration//GEN-END:variables
 }

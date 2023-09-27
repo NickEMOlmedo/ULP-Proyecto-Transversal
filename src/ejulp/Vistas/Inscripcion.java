@@ -12,7 +12,6 @@ import javax.swing.DefaultComboBoxModel;
 import ejulp.Entidades.InscripcionClass;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Nickemolmedo.
@@ -303,6 +302,8 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
 
     private void boton_inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_inscribirActionPerformed
 
+        borrarFilas();
+
         int fila_seleccionada = tabla_materias.getSelectedRow();
 
         if (fila_seleccionada != -1) {
@@ -314,15 +315,13 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
             String nombreMateria = (String) modelo.getValueAt(fila_seleccionada, 1);
 
             int anio = (int) modelo.getValueAt(fila_seleccionada, 2);
-            
-            MateriaClass inscribir_materia = new MateriaClass(idMateria,nombreMateria,anio,true);
 
-            InscripcionClass nueva_inscripcion = new InscripcionClass(inscribir_alumno,inscribir_materia,0);
+            MateriaClass inscribir_materia = new MateriaClass(idMateria, nombreMateria, anio, true);
+
+            InscripcionClass nueva_inscripcion = new InscripcionClass(inscribir_alumno, inscribir_materia, 0);
 
             inscripciondata_temporal.inscripcion(nueva_inscripcion);
-            
-            borrarFilas();
-            
+
         }
 
 
@@ -331,21 +330,21 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
     private void boton_anularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_anularActionPerformed
 
         int fila_seleccionada = tabla_materias.getSelectedRow();
-        
-        if(fila_seleccionada != -1){
-            
+
+        if (fila_seleccionada != -1) {
+
             Alumno anularinscripcion_alumno = (Alumno) combobox_ListarAlumnos.getSelectedItem();
-            
-            int idMateria =  (int) tabla_materias.getValueAt(fila_seleccionada, 0);
-            
+
+            int idMateria = (int) tabla_materias.getValueAt(fila_seleccionada, 0);
+
             inscripciondata_temporal.borrarInscripcionMateriaAlumno(anularinscripcion_alumno.getIdAlumno(), idMateria);
-            
-        }else{
-            
+
+        } else {
+
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila...");
-            
+
         }
-        
+
         borrarFilas();
 
     }//GEN-LAST:event_boton_anularActionPerformed
