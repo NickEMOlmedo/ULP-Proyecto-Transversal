@@ -255,7 +255,7 @@ public class Formulario extends javax.swing.JFrame {
 
         escritorio.add(notas);
 
-        if (InscripcionData.conexionExitosa()) {
+        if (InscripcionData.conexionExitosa() && AlumnoData.conexionExitosa()) {
 
             notas.setVisible(true);
 
