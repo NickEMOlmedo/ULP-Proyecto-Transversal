@@ -202,7 +202,6 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
 
     InscripcionData inscripciondata_temporal = new InscripcionData();
 
-
     public void cargarCombo() {
 
         ArrayList<Alumno> listadoAlumnos = alumnodata_temporal.listarAlumnos();
@@ -300,25 +299,26 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
 
     private void boton_inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_inscribirActionPerformed
 
-        borrarFilas();
-
         int fila_seleccionada = tabla_materias.getSelectedRow();
 
         if (fila_seleccionada != -1) {
 
             Alumno inscribir_alumno = (Alumno) combobox_ListarAlumnos.getSelectedItem();
 
-            int idMateria = (int) modelo.getValueAt(fila_seleccionada, 0);
+            int idMateria = (int) tabla_materias.getValueAt(fila_seleccionada, 0);
 
-            String nombreMateria = (String) modelo.getValueAt(fila_seleccionada, 1);
+            MateriaClass materia_extraida = new MateriaClass();
+            materia_extraida.setIdMateria(idMateria);
 
-            int anio = (int) modelo.getValueAt(fila_seleccionada, 2);
-
-            MateriaClass inscribir_materia = new MateriaClass(idMateria, nombreMateria, anio, true);
-
-            InscripcionClass nueva_inscripcion = new InscripcionClass(inscribir_alumno, inscribir_materia, 0);
+            InscripcionClass nueva_inscripcion = new InscripcionClass(inscribir_alumno, materia_extraida, 0);
 
             inscripciondata_temporal.inscripcion(nueva_inscripcion);
+
+            borrarFilas();
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila...");
 
         }
 

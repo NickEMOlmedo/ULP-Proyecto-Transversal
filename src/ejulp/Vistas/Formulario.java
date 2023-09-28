@@ -1,9 +1,9 @@
 package ejulp.Vistas;
 
 import ejulp.AccesoAdatos.AlumnoData;
+import ejulp.AccesoAdatos.InscripcionData;
 import ejulp.AccesoAdatos.MateriaData;
 import javax.swing.JOptionPane;
-
 
 public class Formulario extends javax.swing.JFrame {
 
@@ -109,6 +109,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenu3.add(jMenuItem4);
 
         jMenuItem5.setText("Manipulacion de Notas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem5);
 
         jMenuBar1.add(jMenu3);
@@ -182,7 +187,7 @@ public class Formulario extends javax.swing.JFrame {
 
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         Inscripcion inscripcion_open = new Inscripcion();
 
         escritorio.add(inscripcion_open);
@@ -200,7 +205,7 @@ public class Formulario extends javax.swing.JFrame {
 
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         Materia materia_open = new Materia();
 
         escritorio.add(materia_open);
@@ -240,6 +245,24 @@ public class Formulario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+        escritorio.removeAll();
+        escritorio.repaint();
+
+        Notas notas = new Notas();
+
+        escritorio.add(notas);
+
+        if (InscripcionData.conexionExitosa()) {
+
+            notas.setVisible(true);
+
+        }
+
+
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      *
