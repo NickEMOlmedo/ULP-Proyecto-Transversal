@@ -313,11 +313,19 @@ public class formAlumno extends javax.swing.JInternalFrame {
 
             // Verificar si el alumno ya existe en la base de datos
             if (vista_FormAlumno.existeAlumno(dni)) {
+
                 JOptionPane.showMessageDialog(null, "El alumno ya existe en la base de datos.");
-            } else {
+
+                // Se verifica que los campos no esten vacios
+            } else if (!fecha.isEmpty() && !apellido.isEmpty() && !nombre.isEmpty()) {
                 // Si el alumno no existe, guardarlo en la base de datos
                 Alumno guardar_NuevoAlumno = new Alumno(dni, apellido, nombre, LocalDate.parse(fecha), estado);
                 vista_FormAlumno.guardarAlumno(guardar_NuevoAlumno);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No se pueden dejar Campos Vacios.");
+
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Formato de DNI incorrecto.");
@@ -344,20 +352,36 @@ public class formAlumno extends javax.swing.JInternalFrame {
 
     private void modificar_datosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar_datosActionPerformed
 
-        int dni = Integer.parseInt(textField_BusquedaDni.getText());
-        String apellido = textField_apellido.getText();
-        String nombre = textField_nombre.getText();
-        boolean estado = checkbox_activo.isSelected();
-        String fecha = ((JTextField) datechooser_fechanacimiento.getDateEditor().getUiComponent()).getText();
+        try {
+            int dni = Integer.parseInt(textField_BusquedaDni.getText());
+            String apellido = textField_apellido.getText();
+            String nombre = textField_nombre.getText();
+            boolean estado = checkbox_activo.isSelected();
+            String fecha = ((JTextField) datechooser_fechanacimiento.getDateEditor().getUiComponent()).getText();
 
-        Alumno modificar_alumno = vista_FormAlumno.buscarAlumnoDni(dni);
+            // Verificar si el alumno ya existe en la base de datos
+            // Se verifica que los campos no esten vacios
+            if (vista_FormAlumno.existeAlumno(dni) && !fecha.isEmpty() && !apellido.isEmpty() && !nombre.isEmpty()) {
 
-        modificar_alumno.setApellido(apellido);
-        modificar_alumno.setNombre(nombre);
-        modificar_alumno.setActivo(estado);
-        modificar_alumno.setFechaNac(LocalDate.parse(fecha));
+                Alumno modificar_alumno = vista_FormAlumno.buscarAlumnoDni(dni);
 
-        vista_FormAlumno.modificarAlumno(modificar_alumno);
+                modificar_alumno.setApellido(apellido);
+                modificar_alumno.setNombre(nombre);
+                modificar_alumno.setActivo(estado);
+                modificar_alumno.setFechaNac(LocalDate.parse(fecha));
+
+                vista_FormAlumno.modificarAlumno(modificar_alumno);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Verifique que el alumno exista y que no haya ningun campo vacio...");
+
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Formato de DNI incorrecto.");
+        }
+
 
     }//GEN-LAST:event_modificar_datosActionPerformed
 

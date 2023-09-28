@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class AlumnoData {
@@ -73,10 +72,6 @@ public class AlumnoData {
             ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
             ps.setBoolean(5, alumno.isActivo());
             ps.setInt(6, alumno.getIdAlumno());
-
-            System.out.println(sql);
-
-            System.out.println(alumno.toString());
 
             int exito = ps.executeUpdate();
             if (exito == 1) {
