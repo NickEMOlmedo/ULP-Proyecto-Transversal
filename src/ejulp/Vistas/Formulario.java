@@ -119,6 +119,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenu3.add(jMenuItem4);
 
         jMenuItem5.setText("Manipulacion de Notas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem5);
 
         jMenuBar1.add(jMenu3);
@@ -188,6 +193,18 @@ public class Formulario extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Notas nota=new Notas();
+        escritorio.add(nota);
+        if(AlumnoData.conexionExitosa()){
+        
+            nota.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
