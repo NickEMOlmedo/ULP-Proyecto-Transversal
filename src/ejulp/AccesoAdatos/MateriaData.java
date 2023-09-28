@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import ejulp.Entidades.MateriaClass;
 
@@ -127,7 +126,7 @@ public class MateriaData {
         }
     }
 
-    public List<MateriaClass> listarMaterias() {
+    public ArrayList<MateriaClass> listarMaterias() {
 
         String sql = "SELECT idMateria,nombre,año FROM materia WHERE estado=1";
         ArrayList<MateriaClass> materias = new ArrayList<>();

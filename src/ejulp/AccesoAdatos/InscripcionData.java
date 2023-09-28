@@ -173,10 +173,11 @@ public class InscripcionData {
 
     }
 
-    public List<Alumno> obtenerAlumnosXMateria(int idMateria) {
+    public ArrayList<Alumno> obtenerAlumnosXMateria(int idMateria) {
         ArrayList<Alumno> alumnosMateria = new ArrayList<>();
-        String sql = "SELECT a.idAlumno ,dni,nombre,apellido,fechaNacimiento,estado"
-                + "FROM inscripcion i,alumno a WHERE i.idAlumno =a.idAlumno AND idMateria =? AND a.estado= 1";
+        String sql = "SELECT a.idAlumno, dni, nombre, apellido, fechaNacimiento,  estado "
+                + "FROM inscripcion i, alumno a "
+                + "JOIN alumno a WHERE i.idAlumno = a.idAlumno AND idMateria = ? AND a.estado = 1 ";
         try {
             PreparedStatement ps = con.prepareCall(sql);
             ps.setInt(1, idMateria);
@@ -184,15 +185,16 @@ public class InscripcionData {
             while (rs.next()) {
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
-                alumno.setApellido(rs.getString("apellido "));
-                alumno.setNombre(rs.getString("nombre "));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(rs.getBoolean("estado"));
                 alumnosMateria.add(alumno);
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " error al acceder a la tabla  ");
+
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla  ");
         }
         return alumnosMateria;
     }

@@ -1,9 +1,6 @@
 
 package ejulp.Entidades;
 
-import ejulp.Entidades.MateriaClass;
-import ejulp.Entidades.Alumno;
-
 
 public class InscripcionClass {
     

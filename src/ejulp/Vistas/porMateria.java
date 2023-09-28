@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import ejulp.Entidades.MateriaClass;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import ejulp.AccesoAdatos.InscripcionData;
+import ejulp.Entidades.Alumno;
 
 /**
  *
@@ -22,14 +24,15 @@ public class porMateria extends javax.swing.JInternalFrame {
      */
     private final DefaultComboBoxModel modeloComboMaterias;
     private DefaultTableModel modelo;
-    
+
     public porMateria() {
         initComponents();
-        
+
         modeloComboMaterias = new DefaultComboBoxModel<>(); // Crea el modelo de ComboBox
         modelo = new DefaultTableModel();
         comboboxMateria.setModel(modeloComboMaterias);
         cargarCombo();
+        armarCabecera();
     }
 
     /**
@@ -92,17 +95,18 @@ public class porMateria extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboboxMateria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(comboboxMateria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(comboboxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,28 +121,30 @@ public class porMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     MateriaData materias = new MateriaData();
-    
+    InscripcionData inscripcion = new InscripcionData();
+
     private void cargarCombo() {
-        
-        ArrayList<MateriaClass> lista_materias = (ArrayList<MateriaClass>) materias.listarMaterias();
-        
+
+        ArrayList<MateriaClass> lista_materias = materias.listarMaterias();
+
         modeloComboMaterias.removeAllElements();
-        
+
         for (Object iterador : lista_materias) {
-            
+
             modeloComboMaterias.addElement(iterador);
-            
+
         }
-        
+
     }
-    
-     private void armarCabecera() {
+
+    private void armarCabecera() {
 
         ArrayList<Object> fila_cabecera = new ArrayList<>();
 
         fila_cabecera.add("ID");
+        fila_cabecera.add("DNI");
+        fila_cabecera.add("APELLIDO");
         fila_cabecera.add("NOMBRE");
-        fila_cabecera.add("AÑO");
 
         for (Object lector : fila_cabecera) {
 
@@ -159,17 +165,28 @@ public class porMateria extends javax.swing.JInternalFrame {
         }
 
     }
-    
+
 
     private void comboboxMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxMateriaActionPerformed
-        
+
+        borrarFilas();
+
+        MateriaClass seleccionada = (MateriaClass) modeloComboMaterias.getSelectedItem();
+
+        ArrayList<Alumno> listarAlumnos = inscripcion.obtenerAlumnosXMateria(seleccionada.getIdMateria());
+
+        for (Alumno alumnos : listarAlumnos) {
+
+            modelo.addRow(new Object[]{alumnos.getIdAlumno(), alumnos.getDni(), alumnos.getApellido(), alumnos.getNombre()});
+
+        }
 
     }//GEN-LAST:event_comboboxMateriaActionPerformed
 
     private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
 
-
         this.dispose();
+
     }//GEN-LAST:event_boton_salirActionPerformed
 
 

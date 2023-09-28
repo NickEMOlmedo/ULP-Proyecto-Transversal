@@ -5,7 +5,6 @@ import ejulp.AccesoAdatos.InscripcionData;
 import ejulp.Entidades.Alumno;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import ejulp.AccesoAdatos.MateriaData;
 import ejulp.Entidades.MateriaClass;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -203,7 +202,6 @@ public final class Inscripcion extends javax.swing.JInternalFrame {
 
     InscripcionData inscripciondata_temporal = new InscripcionData();
 
-    MateriaData materiadata_temporal = new MateriaData();
 
     public void cargarCombo() {
 
